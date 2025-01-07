@@ -23,14 +23,14 @@ public:
 	void searchEmployee();
 	void updateSalary();
 };
-void Employee::updateSalary() {
+void Employee::updateSalary() {	//Making
 	for (int i = 0; i < totalEmp; i++){
 		cout << "Name : " << empHave[i].fname << " , ID : " << empHave[i].empId << endl;
 	}
 	int id;
 	cout << "\nEnter the employee ID : ";
 	cin >> id;
-	cout<<"You select "<<
+	cout << "You select " << id;
 }
 void Employee::searchEmployee() {
 	int id;
