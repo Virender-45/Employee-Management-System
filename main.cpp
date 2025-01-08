@@ -24,7 +24,13 @@ public:
 	void countEmployees();
 	void searchEmployee();
 	void updateSalary();
+	void deleteEmployee();
 };
+void Employee::deleteEmployee() {
+	int id;
+	cout << "Enter the ID of the Employee you want to delete : ";
+	cin >> id;
+}
 void Employee::updateSalary() {	//Making
 	int id;
 	float newSalary;
@@ -51,15 +57,22 @@ void Employee::searchEmployee() {
 	cout << "Enter the ID of the employee : ";
 	cin >> id;
 
-	for (int i = 0; i < totalEmp; i++){
-		if (id == empHave[i].empId) {
-			cout << "Employee id : " << id << endl;
-			cout << "Employee Name : " << empHave[i].fname << " " << empHave[i].lname << endl;
-			cout << "Employee Role : " << empHave[i].role << endl;
-			cout << "Employee Salary : " << empHave[i].salary << endl;
+	if (id >= minId && id <= maxId) {
+		for (int i = 0; i < totalEmp; i++) {
+			if (id == empHave[i].empId) {
+				cout << "Employee id : " << id << endl;
+				cout << "Employee Name : " << empHave[i].fname << " " << empHave[i].lname << endl;
+				cout << "Employee Role : " << empHave[i].role << endl;
+				cout << "Employee Salary : " << empHave[i].salary << endl;
+			}
 		}
 	}
+	else {
+		cout << "Employee with ID : " << id << " not found." << endl;
+	}
 }
+
+
 void Employee::countEmployees() {
 	cout << "\n\nWe have total '" << totalEmp << "' employees.\n\n";
 }
@@ -112,7 +125,7 @@ void Employee::displayMenu() {
 	cout << "(1) Add a new employee" << endl;
 	cout << "(2) Display details of all employees" << endl;
 	cout << "(3) Display the total number of employees" << endl;
-	cout << "(4) Search an employee's salary by empID" << endl;
+	cout << "(4) Search an employee by empID" << endl;
 	cout << "(5) Update an employee salary " << endl;
 	cout << "(6) Exit the program" << endl;
 	cout << "Enter your choice : ";
