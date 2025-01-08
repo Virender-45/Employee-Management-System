@@ -30,7 +30,24 @@ void Employee::deleteEmployee() {
 	int id;
 	cout << "Enter the ID of the Employee you want to delete : ";
 	cin >> id;
+
+	if (id >= minId && id <= maxId) {
+		for (int i = 0; i < totalEmp; i++) {
+			for (int j = i; j < totalEmp - 1; j++) {
+				empHave[j] = empHave[j + 1];
+			}
+			totalEmp--;
+			maxId--;
+			cout << "Employee with ID " << id << " has been deleted." << endl;
+			break;
+		}
+	}
+	else {
+		cout << "Invaild input.." << endl;
+	}
 }
+
+
 void Employee::updateSalary() {	//Making
 	int id;
 	float newSalary;
@@ -123,8 +140,9 @@ void Employee::displayMenu() {
 	cout << "(2) Display details of all employees" << endl;
 	cout << "(3) Display the total number of employees" << endl;
 	cout << "(4) Search an employee by empID" << endl;
-	cout << "(5) Update an employee salary " << endl;
-	cout << "(6) Exit the program" << endl;
+	cout << "(5) Update an employee salary" << endl;
+	cout << "(6) Delete an employee" << endl;
+	cout << "(7) Exit the program" << endl;
 	cout << "Enter your choice : ";
 }
 int main() {
