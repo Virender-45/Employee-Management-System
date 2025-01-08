@@ -71,8 +71,6 @@ void Employee::searchEmployee() {
 		cout << "Employee with ID : " << id << " not found." << endl;
 	}
 }
-
-
 void Employee::countEmployees() {
 	cout << "\n\nWe have total '" << totalEmp << "' employees.\n\n";
 }
@@ -118,7 +116,6 @@ Employee::Employee() {
 	totalEmp = 8;
 	maxId = 108;
 }
-
 void Employee::displayMenu() {
 	cout << "--------------Welcome--------------" << endl;
 	cout << "\nSelect an option" << endl;
@@ -154,13 +151,16 @@ int main() {
 			wowz.updateSalary();
 			break;
 		case 6:
+			wowz.deleteEmployee();
+			break;
+		case 7:
 			cout << "Exiting the program..." << endl;
 			break;
 		default:
 			cout << "Invaild input!!" << endl;
 			break;
 		}
-	} while (choice != 6);
+	} while (choice != 7);
 
 
 	return 0;
