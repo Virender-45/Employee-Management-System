@@ -180,6 +180,5 @@ int main() {
 		}
 	} while (choice != 7);
 
-
 	return 0;
 }
