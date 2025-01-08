@@ -14,6 +14,8 @@ public:
 	};
 	emp empHave[100];
 	int totalEmp;
+	int	minId = 101;
+	int maxId;
 	Employee();
 
 	void displayMenu();
@@ -24,13 +26,25 @@ public:
 	void updateSalary();
 };
 void Employee::updateSalary() {	//Making
-	for (int i = 0; i < totalEmp; i++){
-		cout << "Name : " << empHave[i].fname << " , ID : " << empHave[i].empId << endl;
-	}
 	int id;
-	cout << "\nEnter the employee ID : ";
+	float newSalary;
+	cout << "\nEnter employee ID to update salary : ";
 	cin >> id;
-	cout << "You select " << id;
+	
+
+	if (id >= minId && id <= maxId) {
+		cout << "Enter new Salary : ";
+		cin >> newSalary;
+		for (int i = 0; i < totalEmp; i++) {
+			if (id == empHave[i].empId) {
+				empHave[i].salary = newSalary;
+			}
+		}
+		cout << "Salary Updated Sucessfully." << endl;
+	}
+	else {
+		cout << "Invaild id!!!" << endl;
+	}
 }
 void Employee::searchEmployee() {
 	int id;
@@ -64,6 +78,7 @@ void Employee::addEmployee() {
 	cin >> n;
 
 	for (int i = 0; i < n; i++){
+		cout << "Enter deatils of " << i + 1 << " employee " << endl;
 		cout << "Enter first name : ";
 		cin >> empHave[i].fname;
 		cout << "Enter the last name : ";
@@ -74,6 +89,7 @@ void Employee::addEmployee() {
 		cin >> empHave[i].salary;
 		totalEmp += 1;
 		empHave[i].empId = totalEmp + 100;
+		maxId = empHave[i].empId;
 		cout << "Employee with name '" << empHave[i].fname << " " << empHave[i].lname << "' added and gets '" << empHave[i].empId << "' id." << endl;
 	}
 }
@@ -87,6 +103,7 @@ Employee::Employee() {
 	empHave[6] = { 107, "Nikhil", "Thakur", "SEO", 20000 };
 	empHave[7] = { 108, "Atul", "Rana", "SEO", 30000 };
 	totalEmp = 8;
+	maxId = 108;
 }
 
 void Employee::displayMenu() {
@@ -125,11 +142,12 @@ int main() {
 			break;
 		case 6:
 			cout << "Exiting the program..." << endl;
+			break;
 		default:
 			cout << "Invaild input!!" << endl;
 			break;
 		}
-	} while (choice != 5);
+	} while (choice != 6);
 
 
 	return 0;
