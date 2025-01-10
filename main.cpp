@@ -1,173 +1,185 @@
 #include<iostream>
 #include<string>
-
-
+				  
 using namespace std;
 
-class Bank {
+class Employee {
 public:
-	struct Customer {
-		int accountNumber = 0;
-		string name;
-		double balance = 0;
+	struct emp{
+		int empId;
+		string fname;
+		string lname;
+		string role;
+		float salary;
 	};
-	Customer cusHave[100];
-	int totalCustomer;
-	Bank();
+	emp empHave[100];
+	int totalEmp;
+	int	minId = 101;
+	int maxId;
+	Employee();
 
 	void displayMenu();
-	void addCustomer();
-	void displayCustomers();
-	void searchCustomer();
-	void depositMoney();
-	void withdrawMoney();
-	void transferMoney();
+	void addEmployee();
+	void displayDetails();
+	void countEmployees();
+	void searchEmployee();
+	void updateSalary();
+	void deleteEmployee();
 };
+void Employee::deleteEmployee() {
+	int id;
+	cout << "Enter the ID of the Employee you want to delete : ";
+	cin >> id;
 
-void Bank::withdrawMoney() {
-	int ac;
-	double amt;
-	cout << "Enter the Account No. : ";
-	cin >> ac;
-	cout << "Enter the amount to withdraw : ";
-	cin >> amt;
-
-	bool found = false;
-	for (int i = 0; i < totalCustomer; i++) {
-		if (ac == cusHave[i].accountNumber) {
-			found = true;
-			if (amt <= cusHave[i].balance) {
-				cout << "Withdrawl Sucessful." << endl;
-				cusHave[i].balance -= amt;
-				cout << "Balance left in account " << cusHave[i].accountNumber << " is " << cusHave[i].balance << endl;
+	if (id >= minId && id <= maxId) {
+		for (int i = 0; i < totalEmp; i++) {
+			for (int j = i; j < totalEmp - 1; j++) {
+				empHave[j] = empHave[j + 1];
 			}
-			else {
-				cout << "Not a valid Amount.." << endl;
+			totalEmp--;
+			maxId--;
+			cout << "Employee with ID " << id << " has been deleted." << endl;
+			break;
+		}
+	}
+	else {
+		cout << "Invaild input.." << endl;
+	}
+}
+
+
+void Employee::updateSalary() {	//Making
+	int id;
+	float newSalary;
+	cout << "\nEnter employee ID to update salary : ";
+	cin >> id;
+	
+
+	if (id >= minId && id <= maxId) {
+		cout << "Enter new Salary : ";
+		cin >> newSalary;
+		for (int i = 0; i < totalEmp; i++) {
+			if (id == empHave[i].empId) {
+				empHave[i].salary = newSalary;
+			}
+		}
+		cout << "Salary Updated Sucessfully." << endl;
+	}
+	else {
+		cout << "Invaild id!!!" << endl;
+	}
+}
+void Employee::searchEmployee() {
+	int id;
+	cout << "Enter the ID of the employee : ";
+	cin >> id;
+
+	if (id >= minId && id <= maxId) {
+		for (int i = 0; i < totalEmp; i++) {
+			if (id == empHave[i].empId) {
+				cout << "Employee id : " << id << endl;
+				cout << "Employee Name : " << empHave[i].fname << " " << empHave[i].lname << endl;
+				cout << "Employee Role : " << empHave[i].role << endl;
+				cout << "Employee Salary : " << empHave[i].salary << endl;
 			}
 		}
 	}
-	if (!found) {
-		cout << "Customer with Acc. No. " << ac << " not found" << endl;
+	else {
+		cout << "Employee with ID : " << id << " not found." << endl;
 	}
 }
-void Bank::depositMoney() {
-	int ac;
-	double newBalance;
-	cout << "Enter the Account No. : ";
-	cin >> ac;
-	cout << "Enter the amount to be add : ";
-	cin >> newBalance;
-
-	bool found = false;
-	for (int i = 0; i < totalCustomer; i++) {
-		if (ac == cusHave[i].accountNumber) {
-			cusHave[i].balance += newBalance;
-			cout << "Balance Updated Sucessfully" << endl;
-			found = true;
-		}
-	}
-	if (!found) {
-		cout << "Customer with Acc. No. " << ac << " not found" << endl;
+void Employee::countEmployees() {
+	cout << "\n\nWe have total '" << totalEmp << "' employees.\n\n";
+}
+void Employee::displayDetails() {
+	for (int i = 0; i < totalEmp; i++){
+		cout << "\nEmployee " << i + 1 << endl;
+		cout << "ID : " << empHave[i].empId << endl;
+		cout << "Name : " << empHave[i].fname << " " << empHave[i].lname << endl;
+		cout << "Role : " << empHave[i].role << endl;
+		cout << "Salary : " << empHave[i].salary << endl;
 	}
 }
-void Bank::searchCustomer() {
-	int ac;
-	cout << "Enter the Account No. of Employee : ";
-	cin >> ac;
-
-	bool found = false;
-	for (int i = 0; i < totalCustomer; i++) {
-		if (ac == cusHave[i].accountNumber) {
-			cout << "Customer with Acc. No. " << ac << " is : " << endl;
-			cout << "Name : " << cusHave[i].name << endl;
-			cout << "Balance : " << cusHave[i].balance << endl;
-			found = true;
-		}
-	}
-	if (!found) {
-		cout << "Not found..." << endl;
-	}
-}
-
-void Bank::displayCustomers() {
-	for (int i = 0; i < totalCustomer; i++) {
-		cout << "Customer " << i + 1 << " :" << endl;
-		cout << "Account No. : " << cusHave[i].accountNumber << endl;
-		cout << "Name : " << cusHave[i].name << endl;
-		cout << "Balance : " << cusHave[i].balance << endl;
-	}
-}
-void Bank::addCustomer() {
+void Employee::addEmployee() {
 	int n;
-	cout << "How many customers you want to add : ";
+	cout << "How many Employees you want to add : ";
 	cin >> n;
 
-	for (int i = 0; i < n; i++) {
-		cout << "Enter details of customer - " << i + 1 << " :" << endl;
-		cout << "Enter account number : ";
-		cin >> cusHave[i].accountNumber;
-		cout << "Enter name : ";
-		cin >> cusHave[i].name;
-		cout << "Enter the balance : ";
-		cin >> cusHave[i].balance;
-		cout << "\nCustomer with name : " << cusHave[i].name << " added\n" << endl;
-
-		totalCustomer += n;
+	for (int i = 0; i < n; i++){
+		cout << "Enter deatils of " << i + 1 << " employee " << endl;
+		cout << "Enter first name : ";
+		cin >> empHave[i].fname;
+		cout << "Enter the last name : ";
+		cin >> empHave[i].lname;
+		cout << "Enter role : ";
+		cin >> empHave[i].role;
+		cout << "Enter salary : ";
+		cin >> empHave[i].salary;
+		totalEmp += 1;
+		empHave[i].empId = totalEmp + 100;
+		maxId = empHave[i].empId;
+		cout << "Employee with name '" << empHave[i].fname << " " << empHave[i].lname << "' added and gets '" << empHave[i].empId << "' id." << endl;
 	}
 }
-Bank::Bank() {
-	cusHave[0] = { 10001, "Virender", 100 };
-	cusHave[1] = { 10002, "Sahil", 1000 };
-	cusHave[2] = { 10003, "Atul", 10000 };
-	cusHave[3] = { 10004, "Nikhil", 100000};
-	cusHave[4] = { 10005, "Abhay", 1000000 };
-	totalCustomer = 5;
+Employee::Employee() {
+	empHave[0] = { 101, "Virender", "Singh", "Developer", 1000 };
+	empHave[1] = { 102, "Aman", "Dhiman", "Developer", 10000 };
+	empHave[2] = { 103, "Abhay", "Chandel", "Developer", 100000 };
+	empHave[3] = { 104, "Sahil", "Yadav", "Developer", 1000000 };
+	empHave[4] = { 105, "Pankaj", "Guleria", "Designer", 1000 };
+	empHave[5] = { 106, "Shubham", "Verma", "Designer", 10000 };
+	empHave[6] = { 107, "Nikhil", "Thakur", "SEO", 20000 };
+	empHave[7] = { 108, "Atul", "Rana", "SEO", 30000 };
+	totalEmp = 8;
+	maxId = 108;
 }
-void Bank::displayMenu() {
-	cout << "----------Welcome to Apna Bank----------" << endl;
-	cout << "(1) Add Customer." << endl;
-	cout << "(2) Display All Customers." << endl;
-	cout << "(3) Search a Customer." << endl;
-	cout << "(4) Deposit Money." << endl;
-	cout << "(5) Withdraw Money." << endl;
-	cout << "(6) Transfer Money." << endl;
-	cout << "(7) Exit From Bank." << endl;
+void Employee::displayMenu() {
+	cout << "--------------Welcome--------------" << endl;
+	cout << "\nSelect an option" << endl;
+	cout << "(1) Add a new employee" << endl;
+	cout << "(2) Display details of all employees" << endl;
+	cout << "(3) Display the total number of employees" << endl;
+	cout << "(4) Search an employee by empID" << endl;
+	cout << "(5) Update an employee salary" << endl;
+	cout << "(6) Delete an employee" << endl;
+	cout << "(7) Exit the program" << endl;
 	cout << "Enter your choice : ";
 }
-
 int main() {
-	int choice;
-	Bank obj;
 
-	do {
-		obj.displayMenu();
+	int choice;
+	Employee wowz;
+	do{
+		wowz.displayMenu();
 		cin >> choice;
-		switch (choice) {
+		switch (choice){
 		case 1:
-			obj.addCustomer();
+			wowz.addEmployee();
 			break;
 		case 2:
-			obj.displayCustomers();
+			wowz.displayDetails();
 			break;
 		case 3:
-			obj.searchCustomer();
+			wowz.countEmployees();
 			break;
 		case 4:
-			obj.depositMoney();
+			wowz.searchEmployee();
 			break;
 		case 5:
-			obj.withdrawMoney();
+			wowz.updateSalary();
 			break;
 		case 6:
-			obj.transferMoney();
+			wowz.deleteEmployee();
+			break;
 		case 7:
-			cout << "Eciting the bank..." << endl;
+			cout << "Exiting the program..." << endl;
 			break;
 		default:
-			cout << "Inavild input..." << endl;
+			cout << "Invaild input!!" << endl;
 			break;
 		}
 	} while (choice != 7);
+
 
 	return 0;
 }
