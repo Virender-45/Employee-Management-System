@@ -105,7 +105,7 @@ void Employee::addEmployee() {
 	cout << "How many Employees you want to add : ";
 	cin >> n;
 
-	for (int i = 0; i < n; i++){
+/*	for (int i = 0; i < n; i++) { // This may overwritten the existing values
 		cout << "Enter deatils of " << i + 1 << " employee " << endl;
 		cout << "Enter first name : ";
 		cin >> empHave[i].fname;
@@ -120,7 +120,29 @@ void Employee::addEmployee() {
 		maxId = empHave[i].empId;
 		cout << "Employee with name '" << empHave[i].fname << " " << empHave[i].lname << "' added and gets '" << empHave[i].empId << "' id." << endl;
 	}
+}*/
+void Employee::addEmployee() {
+    int n;
+    cout << "How many Employees you want to add: ";
+    cin >> n;
+
+    for (int i = totalEmp; i < totalEmp + n; i++) {
+        cout << "Enter details of employee " << i + 1 - totalEmp << endl;
+        cout << "Enter first name: ";
+        cin >> empHave[i].fname;
+        cout << "Enter the last name: ";
+        cin >> empHave[i].lname;
+        cout << "Enter role: ";
+        cin >> empHave[i].role;
+        cout << "Enter salary: ";
+        cin >> empHave[i].salary;
+        empHave[i].empId = i + 101;
+        cout << "Employee '" << empHave[i].fname << " " << empHave[i].lname << "' added with ID " << empHave[i].empId << ".\n";
+    }
+    totalEmp += n;
+    maxId = totalEmp + 100;
 }
+
 Employee::Employee() {
 	empHave[0] = { 101, "Virender", "Singh", "Developer", 1000 };
 	empHave[1] = { 102, "Aman", "Dhiman", "Developer", 10000 };
